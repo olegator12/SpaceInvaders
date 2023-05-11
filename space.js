@@ -119,7 +119,7 @@ function update() {
     for(let i = 0; i < bulletArray.length; i++){
         let bullet = bulletArray[i];
         bullet.y += bulletSpeedY;
-        context.fillStyle = "White";
+        context.fillStyle = "white";
         context.fillRect(bullet.x, bullet.y, bullet.width, bullet.height);
 
         //Коллизия пуль
@@ -134,24 +134,24 @@ function update() {
         }
     }
 
-    //Удаление пуль
-    while(bulletArray.length > 0 && (bulletArray[0].used || bulletArray[0].y < 0)){
-        bulletArray.shift();
-    }
-
     //Следующий уровень
     if(alienCount == 0){
         alienColumns = Math.min(alienColumns + 1, columns / 2 - 2);
         alienRows = Math.min(alienRows + 1, rows - 4);
-        alienSpeedX += 0.2;
+        alienSpeedX = Math.abs(alienSpeedX) + 0.2;
         alienArray = [];
         bulletArray = [];
         let randomIndex = Math.floor(Math.random() * colorsArray.length);
         randomColor = colorsArray[randomIndex];
         createAliens();
     }
+    
+    //Удаление пуль
+    while(bulletArray.length > 0 && (bulletArray[0].used || bulletArray[0].y < 0)){
+        bulletArray.shift();
+    }
 
-
+    
     //Счет
     context.fillStyle = "white";
     context.font = "16px courier";
